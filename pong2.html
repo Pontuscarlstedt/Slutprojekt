@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PONG</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="pong.css">
+</head>
+<body>
+    <div class="kontainer">
+        <canvas></canvas>
+        <div class="kolumn">
+            <h1>Pong</h1>
+            <h3>Antal spelare:</h3>
+            <button class="btn btn-secondary" onclick="location.href = './pong.html';" >1 spelare</button>
+            <button class="btn btn-light" onclick="location.href = './pong2.html';" >2 spelare</button>
+
+            <h4>Första spelare och Andra spelare</h4>
+            <form>
+                <input type="text" id="namn" required>
+                <input type="text" id="namn2" required>
+                <button class="btn btn-light" id="start">Start</button>
+                <button class="btn btn-secondary" id="stop">Stop</button>
+            </form>
+
+            <h4>Poäng <span id="poäng">0</span></h4>
+        </div>
+    </div>
+    <script defer src="./pong2.js"></script>
+</body>
+</html>

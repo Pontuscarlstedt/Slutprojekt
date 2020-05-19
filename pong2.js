@@ -30,7 +30,8 @@ var racket_1 = {
     ned: false,
     upp: false,
     bredd: 20,
-    höjd: 100
+    höjd: 100,
+    poäng: 0
 };
 var racket_2 = {
     x: 570,
@@ -38,10 +39,10 @@ var racket_2 = {
     ned: false,
     upp: false,
     bredd: 20,
-    höjd: 100
+    höjd: 100,
+    poäng: 0
 };
 var startFlagga = false;
-var poäng = 0;
 
 /* Skapa ljudobjekt */
 studs = new Audio("./studs.wav");
@@ -196,18 +197,18 @@ function animate() {
 
     /* Bollen träffar väggen bakom racketen = Game Over! */
     //Om vänster spelare släpper in bollen
-    if (boll.x <= racket_1.x - 20) {
-        console.log("Poäng till", eNamn2.value);
-        ePoäng2.textContent = poäng2.value;
-        poäng2++;
+    if (boll.x <= racket_1.x - 20) {       
+        racket_2.poäng++;
+        console.log("Poäng till", eNamn2.value, racket_2.poäng);
+        ePoäng2.textContent = racket_2.poäng;
         reset();
         
     }
     //Om höger spelare släpper in bollen
-    if (boll.x >= racket_2.x + 20) {
-        console.log("Poäng till", eNamn1.value);
-        ePoäng1.textContent = poäng1.value;
-        poäng1++;
+    if (boll.x >= racket_2.x + 20) {       
+        racket_1.poäng++;
+        console.log("Poäng till", eNamn1.value, racket_1.poäng);
+        ePoäng1.textContent = racket_1.poäng;
         reset();
         
 
@@ -289,7 +290,7 @@ function lasaHighscore() {
 
     ajax.addEventListener("loadend", function () {
         console.log("Tar emot svar=", this.responseText);
-        eHighscore.innerHTML = this.responseText;
+        //eHighscore.innerHTML = this.responseText;
     });
 
     

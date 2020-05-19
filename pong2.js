@@ -57,8 +57,8 @@ eForm.addEventListener("submit", function(e) {
 
     if (!startFlagga) {
         sparaNamn();
-        startFlagga = true;
         reset();
+        animate();
     }
 });
 
@@ -111,7 +111,7 @@ function reset() {
     boll.y = Math.random() * 400 + 50;
     boll.dx = 5;
     boll.dy = 5;
-    animate();
+    startFlagga = true;
 }
 
 /* Ritar en boll */
@@ -170,13 +170,6 @@ function animate() {
         if (boll.x - boll.radie <= racket_1.x + racket_1.bredd) {
             //console.log("Träff!", poäng);
             boll.dx = -boll.dx;
-            
-
-            /* Skriv poängen direkt */
-            ePoäng1.textContent = poäng1.value;
-
-            /* Öka hastigheten (svårighetsgraden) */
-
             smash.play();
         }
     }
@@ -184,13 +177,6 @@ function animate() {
         if (boll.x + boll.radie > racket_2.x) {
             //console.log("Träff!", poäng);
             boll.dx = -boll.dx;
-            
-
-            /* Skriv poängen direkt */
-            ePoäng2.textContent = poäng2.value;
-
-            /* Öka hastigheten (svårighetsgraden) */
-
             smash.play();
         }
     }

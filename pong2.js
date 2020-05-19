@@ -1,10 +1,14 @@
 /* Element vi arbetar med */
 const eCanvas = document.querySelector("canvas");
 const eForm = document.querySelector("form");
-const eNamn = document.querySelector("#namn");
+const eNamn1 = document.querySelector("#namn1");
+const eNamn2 = document.querySelector("#namn2");
 const knappStart = document.querySelector("#start");
 const knappStop = document.querySelector("#stop");
-const ePoäng = document.querySelector("#poäng");
+const eNamnet1 = document.querySelector("#namnet1");
+const eNamnet2 = document.querySelector("#namnet2");
+const ePoäng1 = document.querySelector("#poäng1");
+const ePoäng2 = document.querySelector("#poäng2");
 const eHighscore = document.querySelector("#highscore");
 
 /* Ställ in bredd och storlek */
@@ -71,6 +75,12 @@ window.addEventListener("keydown", function(e) {
         case "ArrowDown":
             racket_1.ned = true;
             break;
+        case "w":
+                racket_2.upp = true;
+                break;
+        case "s":
+                racket_2.ned = true;
+                break;
     }
 });
 window.addEventListener("keyup", function(e) {
@@ -81,21 +91,6 @@ window.addEventListener("keyup", function(e) {
         case "ArrowDown":
             racket_1.ned = false;
             break;
-    }
-});
-
-window.addEventListener("keydown", function(e) {
-    switch (e.key) {
-        case "w":
-            racket_2.upp = true;
-            break;
-        case "s":
-            racket_2.ned = true;
-            break;
-    }
-});
-window.addEventListener("keyup", function(e) {
-    switch (e.key) {
         case "w":
             racket_2.upp = false;
             break;
@@ -105,13 +100,16 @@ window.addEventListener("keyup", function(e) {
     }
 });
 
+
+
+
 /* Startvärden */
 ctx.fillStyle = "#FFF";
 function reset() {
     boll.x = Math.random() * 500 + 50;
     boll.y = Math.random() * 400 + 50;
-    boll.dx = Math.random() * 5;
-    boll.dy = Math.random() * 5;
+    boll.dx = 5;
+    boll.dy = 5;
     animate();
 }
 
@@ -131,14 +129,7 @@ function ritaRacket() {
 }
 
 /* Game Over */
-function gameOver() {
-    ctx.beginPath();
-    ctx.font = "bold 70px Sans-serif";
-    ctx.fillStyle = "#FFF";
-    ctx.textAlign = "center";
-    ctx.fillText("Game Over!", 300, 200);
-    sparaPoäng();
-}
+
 
 /* Animationsloopen */
 function animate() {
@@ -178,14 +169,12 @@ function animate() {
         if (boll.x - boll.radie <= racket_1.x + racket_1.bredd) {
             //console.log("Träff!", poäng);
             boll.dx = -boll.dx;
-            poäng++;
+            
 
             /* Skriv poängen direkt */
-            ePoäng.textContent = poäng;
+            ePoäng1.textContent = poäng1.value;
 
             /* Öka hastigheten (svårighetsgraden) */
-            boll.dx++;
-            boll.dy++;
 
             smash.play();
         }
@@ -194,29 +183,34 @@ function animate() {
         if (boll.x + boll.radie > racket_2.x) {
             //console.log("Träff!", poäng);
             boll.dx = -boll.dx;
-            poäng++;
+            
 
             /* Skriv poängen direkt */
-            ePoäng.textContent = poäng;
+            ePoäng2.textContent = poäng2.value;
 
             /* Öka hastigheten (svårighetsgraden) */
-            boll.dx++;
-            boll.dy++;
 
             smash.play();
         }
     }
 
     /* Bollen träffar väggen bakom racketen = Game Over! */
-    if (boll.x <= -boll.radie) {
-        console.log("Game Over!", boll.x);
-        startFlagga = false;
-        gameOver();
+    //Om vänster spelare släpper in bollen
+    if (boll.x <= racket_1.x - 20) {
+        console.log("Poäng till", eNamn2.value);
+        ePoäng2.textContent = poäng2.value;
+        poäng2++;
+        reset();
+        
     }
-    if (boll.x <= -boll.radie) {
-        console.log("Game Over!", boll.x);
-        startFlagga = false;
-        gameOver();
+    //Om höger spelare släpper in bollen
+    if (boll.x >= racket_2.x + 20) {
+        console.log("Poäng till", eNamn1.value);
+        ePoäng1.textContent = poäng1.value;
+        poäng1++;
+        reset();
+        
+
     }
 
 
@@ -236,11 +230,13 @@ function animate() {
     }
 }
 function sparaNamn() {
-    var namn = eNamn.value;
+    var namn = eNamn1.value;
     console.log("namn=", namn);
+    eNamnet1.textContent = eNamn1.value;
+    eNamnet2.textContent = eNamn2.value;
 
     //låser input-rutan
-    eNamn.readOnly;
+    eNamn1.readOnly;
 
     //Skapa en ajax för att kunna skicka data
 
